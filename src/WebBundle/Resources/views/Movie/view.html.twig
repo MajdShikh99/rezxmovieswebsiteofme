@@ -1,0 +1,122 @@
+{% extends "WebBundle::layout.html.twig" %}
+{% set subtitle =  poster.title %}
+{% set og_description =  poster.description %}
+{% set og_type =  "video.movie" %}
+{% set og_image =  asset(poster.poster.link)|imagine_filter('poster_thumb') %}
+{% set keywords =  poster.tags %}
+{% block title %}{{poster.title}}{% endblock %}
+{% block body %}
+	<div class="row content-section">
+		<div class="col-md-12" >
+			<div class="movie-header-bg" style=" background-image: url('{{asset((poster.cover == null)? poster.poster.link : poster.cover.link)}}');">
+				<div class="movie-header">
+					<div class="movie-title">{{poster.title}}</div>
+					<div class="movie-infos">{{poster.year}} • {{poster.classification}} • {{poster.duration}} {% for genre in poster.genres %} • <a href="{{path("wep_movie_index",{genre: genre.title,order:"views"})}}">{{genre.title}}</a>{% endfor %}
+				</div>
+				<div class="header-buttons">
+					<button id="share-btn">
+					<i  class="fa fa-share "></i>SHARE
+					<div class="share-buttons">
+						<a href="http://www.facebook.com/sharer.php?u={{ app.request.schemeAndHttpHost ~ app.request.baseUrl ~ "/share/" ~ poster.id ~ ".html"}}" target="_blank">
+							<i class="fab fa-facebook-f"></i>
+						</a>
+						<a href="https://twitter.com/share?url={{ app.request.schemeAndHttpHost ~ app.request.baseUrl ~ "/share/" ~ poster.id ~ ".html"}}&amp;text={{poster.title}}" target="_blank">
+							<i class="fab fa-twitter"></i>
+						</a>
+					</div>
+					</button>
+				</div>
+				<div class="header-ratings">
+					• {{poster.imdb}} / 10 <span class="imdb">Rating</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12" >
+		<div class="dropdown">
+				{% if all_sources|length > 0 %}
+					{% if sources|length >0 %}
+						<a href="{{path("wep_player_movie",{id:poster.id,slug:poster.slug,source:sources[0].id})}}" class="btn play-btn"><span class="fa fa-play"></span> Play Movie</a>
+					{% else %}
+						<a href="{{path("wep_subscription_subscribe")}}" class="btn play-btn"><i class="fas fa-star"></i> Subscribe to Play!</a>
+					{% endif %}
+				{% endif %}
+				{% if poster.trailer != null %}
+					<button id="trailer-btn" class="btn play-btn"><span class="fa fa-bullhorn"></span> Watch Trailer</button>
+				{%  endif %}
+
+				{% if all_source_downloads|length > 0 %}
+					<button id="downloads-btn" class="btn play-btn movie-downloads"  data-id={{poster.id}} data-title="{{poster.title}}"><span class="fas fa-download"></span> Download</button>
+				{% endif %}
+
+				</div>
+			</div>
+		</div>
+		{% if settings.moviebannertype == "image"%}
+			<div class="col-sm-12 col-md-12 ads-element">
+				<img src="{{settings.homebanner}}">
+			</div>
+		{% elseif settings.moviebannertype =="code" %}
+			<div class="col-sm-12 col-md-12">
+				{{settings.homebanner|raw}}
+			</div>
+		{% endif %}
+		<div class="col-md-12 padding-top-20" >
+			<div class="movie-section-title">Overview</div>
+		</div>
+		<div class="col-md-12" >
+			<p>
+				{{poster.description}}
+			</p>
+		</div>
+		{% if poster.roles|length != 0 %}
+			<div class="col-md-12 padding-top-20" >
+				<div class="movie-section-title">Cast</div>
+			</div>
+			<div class="flix-carousel" >
+				<button  class="prev_btn"><i class="fa fa-chevron-left"></i></button>
+				<button  class="next_btn"><i class="fa fa-chevron-right"></i></button>
+				<div class="flix-scroll-x">
+					{% for cast in poster.roles %}
+						{{ include('WebBundle:Actor:cast.html.twig',{cast:cast}) }}
+					{% endfor %}
+				</div>
+			</div>
+		{% endif %}
+		{% if related_posters|length != 0 %}
+			<div class="col-md-12 padding-top-20" >
+				<div class="movie-section-title">New Movies For You</div>
+			</div>
+			<div class="flix-carousel" >
+				<button  class="prev_btn"><i class="fa fa-chevron-left"></i></button>
+				<button  class="next_btn"><i class="fa fa-chevron-right"></i></button>
+				<div class="flix-scroll-x">
+					{% for related_poster in related_posters %}
+						{% if related_poster.type == "movie" %}
+							{{ include('WebBundle:Movie:movie.html.twig',{poster:related_poster}) }}
+						{% else %}
+							{{ include('WebBundle:Serie:serie.html.twig',{poster:related_poster}) }}
+						{% endif %}
+					{% endfor %}
+					
+				</div>
+			</div>
+		{% endif %}
+	<div class="background-close  serie-dialog">
+		<div class="login-box ">
+			<div class="notif-head">
+				<span class="notif-close"><i class="fa fa-times" aria-hidden="true"></i></span>
+				<span class="notif-title"><i class="fa fa-fw fa-lock"></i>  </span>
+			</div>
+			<div class="notif-body">
+				<div class="carda__body">
+					<div class="box-content">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% if poster.trailer != null %}
+		<div class="trailer-video" alt="{{poster.trailer.youtubeid}}"></div>
+	{% endif %}
+{% endblock%}

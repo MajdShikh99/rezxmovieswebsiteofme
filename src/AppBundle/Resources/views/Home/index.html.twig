@@ -1,0 +1,104 @@
+{% extends "AppBundle::layout.html.twig" %}
+{% block body%}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats my-statis-card">
+                <div class="card-header" data-background-color="blue">
+                    <i class="material-icons">movie</i>
+                </div>
+                <div class="card-content">
+                    <h3 class="title">{{movies_count}}</h3>
+                    <p class="category">Movies</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats  my-statis-card">
+                <div class="card-header" data-background-color="green">
+                    <i class="material-icons">label</i>
+                </div>
+                <div class="card-content">
+                    <h3 class="title">{{genre_count}}</h3>
+                    <p class="category">Genres</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats  my-statis-card">
+                <div class="card-header" data-background-color="orange">
+                    <i class="material-icons">recent_actors</i>
+                </div>
+                <div class="card-content">
+                     <h3 class="title">{{actor_count}}</h3>
+                    <p class="category">Actors</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats  my-statis-card">
+                <div class="card-header" data-background-color="purple">
+                    <i class="material-icons">slideshow</i>
+                </div>
+                <div class="card-content">
+                     <h3 class="title">{{slide_count}}</h3>
+                    <p class="category">Sliders</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats  my-statis-card">
+                <div class="card-header" data-background-color="rose">
+                    <i class="material-icons">remove_red_eye</i>
+                </div>
+                <div class="card-content">
+                     <h3 class="title">{{movie_views}}</h3>
+                    <p class="category">Movies Views</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats  my-statis-card">
+                <div class="card-header" data-background-color="green">
+                    <i class="material-icons">cloud_download</i>
+                </div>
+                <div class="card-content">
+                     <h3 class="title">{{movie_downloads}}</h3>
+                    <p class="category">Movies Downloads</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats  my-statis-card">
+                <div class="card-header" data-background-color="red">
+                    <i class="material-icons">share</i>
+                </div>
+                <div class="card-content">
+                     <h3 class="title">{{movie_shares}}</h3>
+                    <p class="category">Movies Shares</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats  my-statis-card">
+                <div class="card-header" data-background-color="blue">
+                    <i class="material-icons">message</i>
+                </div>
+                <div class="card-content">
+                     <h3 class="title">{{support_count}}</h3>
+                    <p class="category">Support message</p>
+                </div>
+
+            </div>
+        </div>
+ 
+    </div>
+</div>
+{% endblock%}
